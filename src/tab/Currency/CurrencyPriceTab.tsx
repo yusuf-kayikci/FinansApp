@@ -6,10 +6,17 @@ import apiCaller from '../../api/apicalller'
 import ApiCaller from '../../api/apicalller';
 import Data from '../../model/Data'
 
-const Table = require('ts-react-json-table');
+import DataTable from '../../component/DataTable'
 
-export default class CurrencyPriceTab extends Component{
+
+interface State {
+    TableItems: Data[]
+    // Make all state optional! See Hack below
+}
+
+export default class CurrencyPriceTab extends Component<{},State>{
     constructor(props : any){
+        
         super(props);
         this.state = {
             TableItems : []
@@ -25,8 +32,10 @@ export default class CurrencyPriceTab extends Component{
         })
     }
     render(){
+        let heads : string[] = ['İsim','Alış','Satış','Fark'];
         return(
             <View>
+                <DataTable heads = {heads} rows = {this.state.TableItems}></DataTable>
             </View>
         );
     }
