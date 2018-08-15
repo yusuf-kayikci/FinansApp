@@ -41,10 +41,16 @@
     "cacheDirectory": ".jest/cache"
   },
   "dependencies": {
+    "@types/promise": "^7.1.30",
     "@types/react-navigation": "^2.0.15",
+    "@types/whatwg-fetch": "^0.0.33",
     "expo": "^27.0.1",
+    "promise": "^8.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "ts-react-json-table": "^0.1.1"
+    "react-native-table-component": "^1.1.8",
+    "react-navigation": "git+https://github.com/react-community/react-navigation.git",
+    "ts-react-json-table": "^0.1.1",
+    "whatwg-fetch": "^2.0.4"
   }
 }

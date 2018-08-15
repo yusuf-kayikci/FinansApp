@@ -1,21 +1,55 @@
 import React from 'react'
 import { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
+
+import CurrencyMenu from './src/menu/CurrencyMenu'
+import GoldMenu from './src/menu/GoldMenu'
+
+import "promise/polyfill"
+import "whatwg-fetch"
 
 
-import {createMaterialTopTabNavigator } from 'react-navigation';
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+import  {createMaterialTopTabNavigator}  from 'react-navigation';
+var MainScreenNavigator = createMaterialTopTabNavigator({
+  Currency : { 
+    screen : CurrencyMenu,
+    navigationOptions:{
+      tabBarLabel : 'Currency'  
+    }
+  },
+  Gold : { 
+    screen : GoldMenu,
+    navigationOptions:{
+      tabBarLabel : 'Gold'
+    }
   }
-}
+},{
+  swipeEnabled : true,
+  tabBarPosition : 'top',
+  tabBarOptions : {
+    activeTintColor : 'yellow',
+    style : {
+      ...Platform.select({
+        ios: {
+          top : 0,
+        },
+        android: {
+          top : 24,
+        },
+      })    
+    }
+  }
+
+})
+
+
+
+MainScreenNavigator.navigationOptions = {
+  title:'App'
+
+};
+
+export default MainScreenNavigator;
 
 const styles = StyleSheet.create({
   container: {
