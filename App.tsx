@@ -14,13 +14,13 @@ var MainScreenNavigator = createMaterialTopTabNavigator({
   Currency : { 
     screen : CurrencyMenu,
     navigationOptions:{
-      tabBarLabel : 'Currency'  
+      tabBarLabel : 'DOVİZ'  
     }
   },
   Gold : { 
     screen : GoldMenu,
     navigationOptions:{
-      tabBarLabel : 'Gold'
+      tabBarLabel : 'ALTIN'
     }
   }
 },{

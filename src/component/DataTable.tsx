@@ -54,7 +54,12 @@ export default class DataTable extends Component<Props>{
         let RowStyle = this.assignRowStyle(row , index);
         return (      
                 <View key = {index + 1} style={RowStyle}>
-                    <View style={styles.NameColumn}><Text style= {TextStyle}>{row.name}</Text></View> 
+                    <View style={styles.CodeColumn}>
+                        <Text style = {styles.CodeColumnText}>{row.code}</Text>
+                        <View style = {styles.NameColumnView}>
+                            <Text style = {styles.NameColumnText}>{row.name}</Text>
+                        </View>
+                    </View> 
                     <View style={styles.Column}><Text style= {TextStyle}>{row.selling}</Text></View>
                     <View style={styles.Column}><Text style= {TextStyle}>{row.buying}</Text></View>
                     <View style={styles.Column}><Text style= {TextStyle}>%{row.change_Rate}</Text></View>
@@ -72,7 +77,7 @@ export default class DataTable extends Component<Props>{
         return ( 
                 <View style = {styles.Container}>
                     <View key = {0} style={styles.TableHeader}>
-                        <View style={styles.NameColumn}><Text>{this.getTime()}</Text></View> 
+                        <View style={styles.DateColumn}><Text>{this.getTime()}</Text></View> 
                         <View style={styles.Column}><Text>Alış</Text></View>
                         <View style={styles.Column}><Text>Satış</Text></View>
                         <View style={styles.Column}><Text>Fark</Text></View>
@@ -95,13 +100,17 @@ const styles = StyleSheet.create({
     Container : {paddingTop :25 , margin : 5},
     RowContainer : {},
     TableHeader : {flexDirection: 'row' ,height : 45 , borderBottomWidth : 1 , borderStyle : 'solid'},
-    Row : { flexDirection: 'row' ,height : 40,borderWidth : 1 ,borderTopWidth : 0, borderStyle : 'solid' },
-    ChangeRateRow : {flexDirection: 'row' , height : 40 , borderWidth : 1 , backgroundColor : 'silver' , borderTopWidth : 0, borderStyle : 'solid' ,opacity : 50 },
-    NameColumn : {flex : 1 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
-    Column : { flex: 0.7, alignSelf: 'center', flexDirection: 'column',marginStart : 40 },
-    IncreaseText : {color : 'green'},
-    DecreaseText :{color : 'red'},
-    StaticText :{color : 'yellow'}
+    Row : { flexDirection: 'row' ,height : 55 , borderWidth : 1 ,borderTopWidth : 0, borderStyle : 'solid' },
+    ChangeRateRow : {flexDirection: 'row' , height : 55  , borderWidth : 1 , backgroundColor : 'silver' , borderTopWidth : 0, borderStyle : 'solid' },
+    CodeColumn : {flex : 1.7 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
+    CodeColumnText : {fontSize : 14 },
+    NameColumnView : {marginBottom : 0, alignSelf : 'baseline' },
+    NameColumnText : {fontSize : 12 , marginBottom : 0},
+    DateColumn : {flex : 1.7 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
+    Column : { flex: 1.2, alignSelf: 'center', flexDirection: 'column',marginStart : 20 },
+    IncreaseText : {color : 'green' , fontSize : 18},
+    DecreaseText :{color : 'red' , fontSize : 18},
+    StaticText :{color : 'yellow' , fontSize : 18}
   });
   
   

@@ -10,19 +10,19 @@ var GoldTabNavigator = createMaterialTopTabNavigator({
     Simulator : { 
       screen : GoldSimulatorTab,
       navigationOptions:{
-        tabBarLabel : 'Simulator'  
+        tabBarLabel : 'HESAP'  
       }
     },
     Prices : { 
       screen : GoldPriceTab,
       navigationOptions:{
-        tabBarLabel : 'Prices'
+        tabBarLabel : 'FİYATLAR'
       }
     },
     MyCurrency : { 
         screen : GoldStockTab,
         navigationOptions:{
-          tabBarLabel : 'My Money'  
+          tabBarLabel : 'KASA'  
         }
       }
   },{

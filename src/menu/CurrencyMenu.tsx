@@ -10,19 +10,19 @@ var CurrencyTabNavigator = createMaterialTopTabNavigator({
     Simulator : { 
       screen : CurrencySimulatorTab,
       navigationOptions:{
-        tabBarLabel : 'Simulator'  
+        tabBarLabel : 'HESAP'  
       }
     },
     Prices : { 
       screen : CurrencyPriceTab,
       navigationOptions:{
-        tabBarLabel : 'Prices'
+        tabBarLabel : 'FİYATLAR'
       }
     },
     MyCurrency : { 
         screen : CurrencyStockTab,
         navigationOptions:{
-          tabBarLabel : 'My Money'  
+          tabBarLabel : 'KASA'  
         }
       }
   },{
