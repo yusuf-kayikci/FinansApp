@@ -10,31 +10,50 @@ type Props = {
 }
 
 export default class DataTable extends Component<Props>{
+    public oldChangeRate : Array<number> = [];
     constructor(props : Props){
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-          dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+            RowStyle : styles.Row
         };
     }
 
-
-    renderRow(row : Data, index : number) {
-        let TextStyle;
+    assignColorText(row : Data){
+        let style;
         if(row.change_Rate > 0){
-            TextStyle = styles.IncreaseText;
+            style = styles.IncreaseText;
         }
         else if(row.change_Rate < 0){
-            TextStyle = styles.DecreaseText;
+            style = styles.DecreaseText;
         }
         else{
-            TextStyle = styles.StaticText;
+            style = styles.StaticText;
+        }
+        return style;
+    }
+
+    assignRowStyle(row : Data , index : number){
+        let style;
+        if(this.oldChangeRate[index]==null){
+            this.oldChangeRate[index] == row.change_Rate;
         }
 
+        if(row.change_Rate != this.oldChangeRate[index]){
+            style = styles.ChangeRateRow;
+            this.oldChangeRate[index] = row.change_Rate;
+        }
+        else{
+            style = styles.Row;
+        }
+        return style;
+    }    
 
-        return (
-                
-                <View key = {index + 1} style={styles.Row}>
+
+    renderRow(row : Data, index : number) {
+        let TextStyle = this.assignColorText(row); 
+        let RowStyle = this.assignRowStyle(row , index);
+        return (      
+                <View key = {index + 1} style={RowStyle}>
                     <View style={styles.NameColumn}><Text style= {TextStyle}>{row.name}</Text></View> 
                     <View style={styles.Column}><Text style= {TextStyle}>{row.selling}</Text></View>
                     <View style={styles.Column}><Text style= {TextStyle}>{row.buying}</Text></View>
@@ -52,7 +71,7 @@ export default class DataTable extends Component<Props>{
     render() {
         return ( 
                 <View style = {styles.Container}>
-                    <View key = {0} style={styles.Row}>
+                    <View key = {0} style={styles.TableHeader}>
                         <View style={styles.NameColumn}><Text>{this.getTime()}</Text></View> 
                         <View style={styles.Column}><Text>Alış</Text></View>
                         <View style={styles.Column}><Text>Satış</Text></View>
@@ -60,7 +79,6 @@ export default class DataTable extends Component<Props>{
                     </View>
                     {
                         this.props.rows.map((row , index) => { // This will render a row for each data element.
-                            console.log(index);
                             return (                                    
                                         this.renderRow(row,index)
                             );
@@ -74,10 +92,11 @@ export default class DataTable extends Component<Props>{
       }
 }
 const styles = StyleSheet.create({
-    Container : {paddingTop :15 , margin : 5},
+    Container : {paddingTop :25 , margin : 5},
     RowContainer : {},
-    TableHeader : {flexDirection: 'row' ,height : 40},
-    Row : { flexDirection: 'row' ,height : 40 },
+    TableHeader : {flexDirection: 'row' ,height : 45 , borderBottomWidth : 1 , borderStyle : 'solid'},
+    Row : { flexDirection: 'row' ,height : 40,borderWidth : 1 ,borderTopWidth : 0, borderStyle : 'solid' },
+    ChangeRateRow : {flexDirection: 'row' , height : 40 , borderWidth : 1 , backgroundColor : 'silver' , borderTopWidth : 0, borderStyle : 'solid' ,opacity : 50 },
     NameColumn : {flex : 1 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
     Column : { flex: 0.7, alignSelf: 'center', flexDirection: 'column',marginStart : 40 },
     IncreaseText : {color : 'green'},

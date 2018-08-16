@@ -23,6 +23,7 @@ interface State {
 export default class CurrencyPriceTab extends Component<{},State>{
 
     public interval : any = null;
+    public apiCaller : ApiCaller = new ApiCaller(ApiUri.CURRENCY_API_URI);
 
     constructor(props : any){
         super(props);
@@ -36,20 +37,19 @@ export default class CurrencyPriceTab extends Component<{},State>{
 
 
     tick() {
+        this.getData();
         this.setState(prevState => ({
-          seconds: prevState.seconds + 1
+          seconds: prevState.seconds + 5
         }));
       }
 
 
     getData(){
-        let apiCaller : ApiCaller = new ApiCaller(ApiUri.CURRENCY_API_URI);
-        apiCaller.callCurrencyApi().then((items) => {
+        this.apiCaller.callCurrencyApi().then((items) => {
             this.setState({
                 refreshing : false,
                 TableItems : items
             })
-            console.log(this.state.TableItems)
         }).catch((err)=>{
             console.log(err);
         });
@@ -60,8 +60,8 @@ export default class CurrencyPriceTab extends Component<{},State>{
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 1000);
-        clearTimeout(this.interval);
+        this.interval = setInterval(() => this.tick(), 5000);
+
     }
       
     componentWillUnmount() {
