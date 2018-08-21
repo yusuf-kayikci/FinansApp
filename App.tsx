@@ -4,12 +4,15 @@ import { StyleSheet, Text, View, Platform } from 'react-native';
 
 import CurrencyMenu from './src/menu/CurrencyMenu'
 import GoldMenu from './src/menu/GoldMenu'
-
 import "promise/polyfill"
 import "whatwg-fetch"
-
-
 import  {createMaterialTopTabNavigator}  from 'react-navigation';
+
+
+
+
+
+
 var MainScreenNavigator = createMaterialTopTabNavigator({
   Currency : { 
     screen : CurrencyMenu,

@@ -6,6 +6,9 @@ import CurrencySimulatorTab from '../tab/Currency/CurrencySimulatorTab'
 import CurrencyStockTab from '../tab/Currency/CurrencyStockTab'
 
 
+
+
+
 var CurrencyTabNavigator = createMaterialTopTabNavigator({
     Simulator : { 
       screen : CurrencySimulatorTab,
@@ -16,7 +19,7 @@ var CurrencyTabNavigator = createMaterialTopTabNavigator({
     Prices : { 
       screen : CurrencyPriceTab,
       navigationOptions:{
-        tabBarLabel : 'FİYATLAR'
+        tabBarLabel : 'FİYATLAR',
       }
     },
     MyCurrency : { 
@@ -37,6 +40,9 @@ var CurrencyTabNavigator = createMaterialTopTabNavigator({
 
 
 export default class CurrencyMenu extends React.Component{
+
+
+  
 render() : any{
     return(
         <CurrencyTabNavigator></CurrencyTabNavigator>

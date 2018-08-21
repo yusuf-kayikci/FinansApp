@@ -43,7 +43,6 @@ export default class CurrencyPriceTab extends Component<{},State>{
         }));
       }
 
-
     getData(){
         this.apiCaller.callCurrencyApi().then((items) => {
             this.setState({
@@ -63,7 +62,8 @@ export default class CurrencyPriceTab extends Component<{},State>{
         this.interval = setInterval(() => this.tick(), 5000);
 
     }
-      
+
+    
     componentWillUnmount() {
         clearInterval(this.interval);
     }
@@ -87,7 +87,6 @@ export default class CurrencyPriceTab extends Component<{},State>{
 
     
     render(){
-
         return(
             <ScrollView refreshControl = {this._refreshControl()}>
                 <DataTable rows = {this.state.TableItems}/>

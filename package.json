@@ -48,6 +48,7 @@
     "promise": "^8.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-collapsible": "^0.13.0",
     "react-native-table-component": "^1.1.8",
     "react-navigation": "git+https://github.com/react-community/react-navigation.git",
     "ts-react-json-table": "^0.1.1",
