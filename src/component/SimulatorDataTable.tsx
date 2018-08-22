@@ -52,6 +52,8 @@ export default class DataTable extends Component<Props>{
     renderRow(row : SimulatorData, index : number) {
         let TextStyle = this.assignColorText(row); 
         let RowStyle = this.assignRowStyle(row , index);
+        let selling : string = row.selling.toFixed(2);
+        let buying : string = row.buying.toFixed(2);
         return (      
                 <View key = {index + 1} style={RowStyle}>
                     <View style={styles.CodeColumn}>
@@ -60,9 +62,9 @@ export default class DataTable extends Component<Props>{
                             <Text style = {styles.NameColumnText}>{row.code}</Text>
                         </View>
                     </View> 
-                    <View style={styles.Column}><Text style= {TextStyle}>{row.selling}</Text></View>
-                    <View style={styles.Column}><Text style= {TextStyle}>{row.buying}</Text></View>
-                    <View style={styles.Column}><Text style= {TextStyle}>%{row.change_Rate}</Text></View>
+                    <View style={styles.Column}><Text style= {TextStyle}>{selling}</Text></View>
+                    <View style={styles.Column}><Text style= {TextStyle}>{buying}</Text></View>
+                    <View style={styles.RateColumn}><Text style= {TextStyle}>%{row.change_Rate}</Text></View>
                 </View>
         );
     }
@@ -80,7 +82,7 @@ export default class DataTable extends Component<Props>{
                         <View style={styles.DateColumn}><Text>{this.getTime()}</Text></View> 
                         <View style={styles.Column}><Text>Alış</Text></View>
                         <View style={styles.Column}><Text>Satış</Text></View>
-                        <View style={styles.Column}><Text>Fark</Text></View>
+                        <View style={styles.RateColumn}><Text>Fark</Text></View>
                     </View>
                     {
                         this.props.rows.map((row , index) => { // This will render a row for each data element.
@@ -102,15 +104,16 @@ const styles = StyleSheet.create({
     TableHeader : {flexDirection: 'row' ,height : 45 , borderBottomWidth : 1 , borderStyle : 'solid'},
     Row : { flexDirection: 'row' ,height : 55 , borderWidth : 1 ,borderTopWidth : 0, borderStyle : 'solid' },
     ChangeRateRow : {flexDirection: 'row' , height : 55  , borderWidth : 1 , backgroundColor : 'silver' , borderTopWidth : 0, borderStyle : 'solid' },
-    CodeColumn : {flex : 1.7 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
-    CodeColumnText : {fontSize : 14 },
+    CodeColumn : {flex : 1 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
+    CodeColumnText : {fontSize : 16 },
     NameColumnView : {marginBottom : 0, alignSelf : 'baseline' },
     NameColumnText : {fontSize : 12 , marginBottom : 0},
     DateColumn : {flex : 1.7 ,alignSelf : 'center' , width : 100 , flexDirection : 'column'},
-    Column : { flex: 1.2, alignSelf: 'center', flexDirection: 'column',marginStart : 20 },
-    IncreaseText : {color : 'green' , fontSize : 18},
-    DecreaseText :{color : 'red' , fontSize : 18},
-    StaticText :{color : 'yellow' , fontSize : 18}
+    Column : { flex: 1.8, alignSelf: 'center', flexDirection: 'column' , marginStart : 20 },
+    RateColumn : { flex : 0.8 , alignSelf: 'center', flexDirection: 'column' },
+    IncreaseText : {color : 'green' , fontSize : 14},
+    DecreaseText :{color : 'red' , fontSize : 14},
+    StaticText :{color : 'yellow' , fontSize : 14}
   });
   
   

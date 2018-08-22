@@ -88,7 +88,6 @@ export default class CurrencySimulatorTab extends React.Component<{} ,State>{
 
     componentDidMount() {
         this.interval = setInterval(() => this.tick(), 5000);
-
     }
 
     fillPickerItems(){
@@ -102,6 +101,9 @@ export default class CurrencySimulatorTab extends React.Component<{} ,State>{
     renderSimulator(){
         return(
             <View style = {styles.SimulatorContainer}>
+                <View style = {styles.InputContainer}>
+                    <TextInput placeholder = 'Type amount' keyboardType  = 'decimal-pad' onChange={(value) => this.setState({Amount: parseFloat(value.nativeEvent.text)})}  placeholderTextColor = 'black' alignItems = 'center' underlineColorAndroid = 'white' style = {styles.Input}/>
+                </View> 
                 <View style = {styles.PickerContainer}>
                     <Picker 
                     selectedValue={this.state.SelectedCurrency}
@@ -110,9 +112,6 @@ export default class CurrencySimulatorTab extends React.Component<{} ,State>{
                         {this.fillPickerItems()}
                     </Picker>
                 </View>
-                <View style = {styles.InputContainer}>
-                    <TextInput placeholder = 'Type amount' keyboardType  = 'decimal-pad' onChange={(value) => this.setState({Amount: parseFloat(value.nativeEvent.text)})}  placeholderTextColor = 'black' alignItems = 'center' underlineColorAndroid = 'white' style = {styles.Input}/>
-                </View> 
                 <View style = {styles.ButtonContainer}>
                     <Button
                         onPress={this.Calculate}
@@ -179,7 +178,21 @@ export default class CurrencySimulatorTab extends React.Component<{} ,State>{
         console.log(this.state.MyCurrencyInfo);
     }
 
+    renderSimulatorDataTable(){
+        if(this.state.MyCurrencyInfo.length == 0){
+            return(
+                <View style = {styles.WarningView}>
+                    <Text>Paranızın değerini görmek için yukarıdaki simulatorü kullanın.</Text>
+                </View>
+            );
+        }
+        else{
+            return(
+                <SimulatorDataTable rows = {this.state.MyCurrencyInfo}/>
+            );
 
+        }
+    }
 
 
 
@@ -187,7 +200,7 @@ export default class CurrencySimulatorTab extends React.Component<{} ,State>{
         return(
             <ScrollView style = {styles.Container} refreshControl = {this._refreshControl()}>
                 {this.renderSimulator()}
-                <SimulatorDataTable rows = {this.state.MyCurrencyInfo}/>
+                {this.renderSimulatorDataTable()}
                 
             </ScrollView>
         )
@@ -200,6 +213,8 @@ const styles = StyleSheet.create({
     InputContainer : {flex : 1 ,margin : 5},
     PickerContainer : { flex : 1},
     ButtonContainer : {flex : 1 ,margin : 5},
-    Input : {borderStyle : 'solid' , height : 35 , borderWidth : 1}
+    Input : {borderStyle : 'solid' , height : 35 , borderWidth : 1},
+    WarningView : {margin : 5}
+
 
 })
