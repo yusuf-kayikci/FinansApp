@@ -1,6 +1,8 @@
 import React from 'react'
 import { Component } from 'react';
 import { StyleSheet, Text, View, Platform } from 'react-native';
+import Data from './src/model/Data'
+
 
 import CurrencyMenu from './src/menu/CurrencyMenu'
 import GoldMenu from './src/menu/GoldMenu'
@@ -49,7 +51,6 @@ var MainScreenNavigator = createMaterialTopTabNavigator({
 
 MainScreenNavigator.navigationOptions = {
   title:'App'
-
 };
 
 export default MainScreenNavigator;

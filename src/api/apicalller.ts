@@ -42,13 +42,16 @@ export default class ApiCaller {
                     .then(response => response.json())
                     .then((response) => {
                         for(var i = 0;i < response.length;i++){
-                            let name : string = response[i]['full_name'];
-                            let code : string = response[i]['full_name'];
-                            let buying : number = response[i]['buying'].toFixed(2);
-                            let selling : number =  response[i]['selling'].toFixed(2)
-                            let change_Rate : number = response[i]['change_rate'].toFixed(2);
-                            let item : Data = new Data(name,code,buying,selling,change_Rate);                                            
-                            items.push(item);
+                            if(response[i] != null)
+                            {
+                                let name : string = response[i]['full_name'];
+                                let code : string = response[i]['full_name'];
+                                let buying : number = response[i]['buying'].toFixed(2);
+                                let selling : number =  response[i]['selling'].toFixed(2)
+                                let change_Rate : number = response[i]['change_rate'].toFixed(2);
+                                let item : Data = new Data(name,code,buying,selling,change_Rate);                                            
+                                items.push(item);
+                            }
                         }
                     }).then(()=>{
                         resolve(items);
