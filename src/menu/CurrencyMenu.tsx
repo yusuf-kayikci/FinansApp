@@ -17,50 +17,6 @@ interface State {
 }
 
 export default class CurrencyMenu extends React.Component{
-  /*
-  public apiCaller : ApiCaller = new ApiCaller(ApiUri.CURRENCY_API_URI);
-  public interval : any = null;
-
-  constructor(props : any){
-    super(props);
-    this.state = {
-      refreshing : true,
-      CurrencyInfo : [],
-      seconds : 0
-    }
-  }
-
-  tick() {
-    this.getData();
-    this.setState(prevState => ({
-      seconds: prevState.seconds + 5
-    }));
-}
-
-  componentWillMount(){
-    this.getData();
-    
-  }
-
-  componentDidMount() {
-      this.interval = setInterval(() => this.tick(), 5000);
-  }
-
-  getData(){
-    this.apiCaller.callCurrencyApi().then((items) => {
-        items.push(new Data('TL','TL', 1 , 1 , 1));
-        this.setState({
-            CurrencyInfo : items
-        })
-    }).catch((err)=>{
-        console.log(err);
-    });
-  }
-  */
-  
-
-
-
   render() : any{
     let CurrencyTabNavigator = createMaterialTopTabNavigator({
       Simulator : { 
@@ -74,18 +30,18 @@ export default class CurrencyMenu extends React.Component{
         navigationOptions:{
           tabBarLabel : 'FİYATLAR',
         }
-      },
-      MyCurrency : {  
-          screen : CurrencyStockTab,
-          navigationOptions:{
-            tabBarLabel : 'KASA'  
-          }
-        }
+      }
     },{
       swipeEnabled : true,  
       tabBarPosition : 'bottom',
       tabBarOptions : {
-        activeTintColor : 'yellow'
+        style : {
+          backgroundColor : 'gold' ,
+        },
+        inactiveBackgroundColor : 'white',
+        labelStyle : {fontSize : 16 , fontWeight : 'bold'},
+        activeTintColor : 'black',
+        indicatorStyle : {backgroundColor : 'black' },
       }
     
     })

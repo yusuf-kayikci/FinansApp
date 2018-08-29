@@ -32,7 +32,7 @@ export class AcordionMenu extends React.Component{
       _renderHeader(section : any) {
         return (
           <View style={styles.header}>
-            <Text style={styles.headerText}>{section.title}</Text>
+            <Text style={styles.HeaderText}>{section.title}</Text>
           </View>
         );
       }

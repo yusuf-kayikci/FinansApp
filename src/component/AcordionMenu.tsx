@@ -47,7 +47,7 @@ export default class AcordionMenu extends React.Component<Props,State>{
                 console.log(this);
                 let isExpanded : boolean = !this.state.expanded;
 
-                let value : number = !isExpanded ? 200 : 0;
+                let value : number = !isExpanded ? 500 : 0;
         
                 this.setState({
                     expanded : isExpanded  //Step 2
@@ -99,8 +99,17 @@ export default class AcordionMenu extends React.Component<Props,State>{
     renderContent(menu : Acordion){
         return(
             menu.content.map((item )=> {
-                return (<View style = {styles.ContentItemView}>
-                    <Text style = {styles.ContentItemText}>{item}</Text><TextInput keyboardType = 'numeric' style = {{flex : 1}}></TextInput>
+                return (<View style = {styles.ContentItemView}> 
+                    <View style = {styles.View1}>
+                        <View style = {styles.View4}>
+                            <Text style = {styles.ContentItemText}>{item}</Text>
+                        </View>
+                        <View style = {styles.View5}>
+                            <TextInput keyboardType  = 'numeric' placeholderTextColor = 'black' alignItems = 'center' underlineColorAndroid = 'white'/>
+
+                        </View>
+
+                    </View>
                 </View>);
             })
         )
@@ -119,9 +128,16 @@ const styles = StyleSheet.create({
     Container : { margin : 5 , flexDirection : 'column' , paddingTop : 25 },
     HeaderView : { backgroundColor : 'silver' , flexDirection : 'row' , alignSelf : 'center', height : 40 , borderWidth : 1 , borderRadius : 7 , borderStyle : 'solid'},
     HeaderText : { fontSize : 20 , marginLeft : 5},
-    ContentItemView : {flexDirection : 'row'},
-    ContentItemText : { fontSize : 14 , flex : 2},
+    ContentItemView : {flexDirection : 'row', fontSize : 14 , marginBottom : 20},
+    View5 : {flex : 1.5 ,  borderStyle : 'solid' , borderWidth : 2 , marginTop : 10 , borderRadius : 6},
+    View4 : {flex : 1.5  },
+    View1 : {flex : 3 , flexDirection : 'column' , height : 60},
+    View2 :{flex : 2},
+    View3 :{flex : 2},
+    ContentItemText : { fontSize : 16 , flex : 2},
     MenuItems : {marginTop : 5},
     MenuDetail : {margin : 10},
-    AnimationContainer : { backgroundColor: '#fff', margin:10 , overflow:'hidden'}
+    AnimationContainer : { backgroundColor: '#fff', margin:10 , overflow:'hidden'},
+    TextInputStyle : {borderWidth : 1 ,borderStyle :'solid'}
+
 })

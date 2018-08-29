@@ -4,6 +4,8 @@ import {Component} from 'react';
 import {View,Text,StyleSheet,ListView} from 'react-native'
 import { types } from 'util';
 import Data from '../model/Data'
+import {Menu ,MenuOptions,MenuOption,MenuTrigger , MenuProvider} from 'react-native-popup-menu'; // 0.8.0
+
 
 type Props = {
     rows : Data[]
@@ -82,6 +84,7 @@ export default class DataTable extends Component<Props>{
                         <View style={styles.Column}><Text>Satış</Text></View>
                         <View style={styles.Column}><Text>Fark</Text></View>
                     </View>
+
                     {
                         this.props.rows.map((row , index) => { // This will render a row for each data element.
                             return (                                    
@@ -110,7 +113,8 @@ const styles = StyleSheet.create({
     Column : { flex: 1.2, alignSelf: 'center', flexDirection: 'column',marginStart : 20 },
     IncreaseText : {color : 'green' , fontSize : 18},
     DecreaseText :{color : 'red' , fontSize : 18},
-    StaticText :{color : 'yellow' , fontSize : 18}
+    StaticText :{color : 'yellow' , fontSize : 18},
+    MenuStyle : {borderWidth : 1 , borderStyle : 'solid'}
   });
   
   

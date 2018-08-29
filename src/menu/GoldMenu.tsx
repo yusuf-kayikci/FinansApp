@@ -18,13 +18,7 @@ var GoldTabNavigator = createMaterialTopTabNavigator({
       navigationOptions:{
         tabBarLabel : 'FİYATLAR'
       }
-    },
-    MyCurrency : { 
-        screen : GoldStockTab,
-        navigationOptions:{
-          tabBarLabel : 'KASA'  
-        }
-      }
+    }
   },{
     swipeEnabled : true,  
     tabBarPosition : 'bottom',

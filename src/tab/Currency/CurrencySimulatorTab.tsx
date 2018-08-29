@@ -9,7 +9,7 @@ import CurrencyMenu from '../../menu/CurrencyMenu';
 import SimulatorData from '../../model/SimulatorData'
 import SimulatorDataTable from '../../component/SimulatorDataTable'
 import DataTable from '../../component/DataTable';
-
+import CurrencyCalculator from '../../component/CurrencyCalculator'
 
 
 
@@ -72,7 +72,7 @@ export default class CurrencySimulatorTab extends React.Component<Props ,State>{
     }
     getData(){
         this.apiCaller.callCurrencyApi().then((items) => {
-            items.unshift(new Data('TL','TL', 1 , 1 , 1));
+            items.unshift(new Data('Türk Lirası','TL', 1 , 1 , 1));
             this.setState({
                 CurrencyInfo : items,
                 refreshing : false
@@ -140,7 +140,7 @@ export default class CurrencySimulatorTab extends React.Component<Props ,State>{
                     </Picker>
                 </View>
                 <View style = {styles.InputContainer}>
-                    <TextInput placeholder = 'Amount' keyboardType  = 'number-pad'  defaultValue = '0' onChange={(value) => this.setState({Amount: parseFloat(value.nativeEvent.text)})}  placeholderTextColor = 'black' alignItems = 'center' underlineColorAndroid = 'white' style = {styles.Input}/>
+                    <TextInput placeholder = 'Amount' keyboardType  = 'numeric'  onChange={(value) => this.setState({Amount: parseFloat(value.nativeEvent.text)})}  placeholderTextColor = 'black' alignItems = 'center' underlineColorAndroid = 'white' style = {styles.Input}/>
                 </View> 
                 <View style = {styles.PickerContainer}>
                     <Picker 
@@ -155,7 +155,6 @@ export default class CurrencySimulatorTab extends React.Component<Props ,State>{
                         onPress={this.Calculate}
                         title="Hesapla"
                         color="#00BFFF" // #01A9EB
-                        accessibilityLabel="Learn more about this purple button"
                     />
                 </View>
             </View>
@@ -225,7 +224,7 @@ export default class CurrencySimulatorTab extends React.Component<Props ,State>{
         if(this.state.MyCurrencyInfo.length == 0){
             return(
                 <View style = {styles.WarningView}>
-                    <Text>xxxParanızın değerini görmek için yukarıdaki simulatorü kullanın.</Text>
+                    <Text>Paranızın değerini görmek için yukarıdaki simulatorü kullanın.</Text>
                 </View>
             );
         }
@@ -261,8 +260,7 @@ export default class CurrencySimulatorTab extends React.Component<Props ,State>{
     render(){
         return(
             <ScrollView style = {styles.Container} refreshControl = {this._refreshControl()}>
-                {this.renderSimulator()}
-                {this.renderSimulatorDataTable()}
+                <CurrencyCalculator Currencies = {this.state.CurrencyInfo}/>
             </ScrollView>
         )
     }
@@ -271,7 +269,8 @@ export default class CurrencySimulatorTab extends React.Component<Props ,State>{
 
 /*
 
-
+                {this.renderSimulator()}
+                {this.renderSimulatorDataTable()}
 */
 
 const styles = StyleSheet.create({

@@ -71,17 +71,17 @@ export default class DataTable extends Component<Props>{
                         </View>
                     </View> 
                     <View style={styles.ToConvertCurrencyColumn}><Text style={styles.ToConvertCurrencyText}>{row.toConvertCurrency}</Text></View>
-                    <View style={styles.Column}><Text style= {TextStyle}>{buying}</Text></View>
                     <View style={styles.Column}><Text style= {TextStyle}>{selling}</Text></View>
+                    <View style={styles.Column}><Text style= {TextStyle}>{buying}</Text></View>
                     <View style = {styles.ButtonColumn}>
                            <TouchableOpacity onPress = {() => this.props.setAlarm(row)}>
-                               <Image  style = {{width : 40 , height : 37}} source = {require("../asset/img/alarm.png")}/>
+                               <Image  style = {{width : 30 , height : 30}} source = {require("../asset/img/alarm.png")}/>
                            </TouchableOpacity>
                     </View>
                     <View style = {styles.ButtonColumn}>
-                    <TouchableOpacity onPress = {() => this.props.deleteRow(row)}>
-                               <Image style = {{width : 40 , height : 37}} source = {require("../asset/img/delete.png")}  />
-                           </TouchableOpacity>
+                        <TouchableOpacity onPress = {() => this.props.deleteRow(row)}>
+                                <Image style = {{width : 30 , height : 30}} source = {require("../asset/img/delete.png")}  />
+                        </TouchableOpacity>
                     </View>
                 </View>
         );

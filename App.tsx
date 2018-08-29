@@ -19,7 +19,7 @@ var MainScreenNavigator = createMaterialTopTabNavigator({
   Currency : { 
     screen : CurrencyMenu,
     navigationOptions:{
-      tabBarLabel : 'DOVİZ'  
+      tabBarLabel : 'DÖVİZ'  
     }
   },
   Gold : { 
@@ -32,8 +32,12 @@ var MainScreenNavigator = createMaterialTopTabNavigator({
   swipeEnabled : true,
   tabBarPosition : 'top',
   tabBarOptions : {
-    activeTintColor : 'yellow',
+    inactiveBackgroundColor : 'white',
+    labelStyle : {fontSize : 16 , fontWeight : 'bold'},
+    activeTintColor : 'black',
+    indicatorStyle : {backgroundColor : 'black'},
     style : {
+      backgroundColor : 'gold' ,
       ...Platform.select({
         ios: {
           top : 0,
