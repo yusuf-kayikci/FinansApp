@@ -47,6 +47,7 @@ export default class DataTable extends Component<Props>{
         else{
             style = styles.Row;
         }
+
         return style;
     }    
 
@@ -80,9 +81,9 @@ export default class DataTable extends Component<Props>{
                 <View style = {styles.Container}>
                     <View key = {0} style={styles.TableHeader}>
                         <View style={styles.DateColumn}><Text>{this.getTime()}</Text></View> 
-                        <View style={styles.Column}><Text>Alış</Text></View>
-                        <View style={styles.Column}><Text>Satış</Text></View>
-                        <View style={styles.Column}><Text>Fark</Text></View>
+                        <View style={[styles.Column , {marginStart : 40}]}><Text>Alış</Text></View>
+                        <View style={[styles.Column , {marginStart : 40}]}><Text>Satış</Text></View>
+                        <View style={[styles.Column , {marginStart : 40}]}><Text>Fark</Text></View>
                     </View>
 
                     {
@@ -90,8 +91,6 @@ export default class DataTable extends Component<Props>{
                             return (                                    
                                         this.renderRow(row,index)
                             );
-                            
-
                         })
                     }
                 </View>

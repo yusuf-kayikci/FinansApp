@@ -23,7 +23,7 @@ interface State {
 export default class CurrencyPriceTab extends Component<{},State>{
 
     public interval : any = null;
-    public apiCaller : ApiCaller = new ApiCaller(ApiUri.CURRENCY_API_URI);
+    public apiCaller : ApiCaller = new ApiCaller();
 
     constructor(props : any){
         super(props);

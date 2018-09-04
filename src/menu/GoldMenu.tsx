@@ -23,7 +23,13 @@ var GoldTabNavigator = createMaterialTopTabNavigator({
     swipeEnabled : true,  
     tabBarPosition : 'bottom',
     tabBarOptions : {
-      activeTintColor : 'yellow'
+      style : {
+        backgroundColor : '#D68910' ,
+      },
+      inactiveBackgroundColor : 'white',
+      labelStyle : {fontSize : 16 , fontWeight : 'bold'},
+      activeTintColor : 'black',
+      indicatorStyle : {backgroundColor : 'black' },
     }
   
   })

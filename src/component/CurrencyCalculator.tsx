@@ -189,11 +189,9 @@ export default class CurrencyCalculator extends React.Component<Props,State>{
                 {this.renderSellOrBuy()}
                 {this.renderFromCurrency()}    
                 {this.renderToCurrency()}
-
                 <View style = {styles.RowContainer}>
                     {this.renderTextInput()}
                     {this.renderButton()}
-
                 </View>
                 <View style = {styles.RowContainer}>
                     <Text style = {styles.ResultText} >
@@ -202,12 +200,9 @@ export default class CurrencyCalculator extends React.Component<Props,State>{
                     }
                     </Text>
                 </View>
-
             </View>
         );
     }
-
-
 }
  
 const styles = StyleSheet.create({
@@ -220,7 +215,7 @@ const styles = StyleSheet.create({
     ResultText : {fontSize : 20 , fontWeight : 'bold'},
     TextInputStyle : {fontSize : 16},
     TextInputView : {borderStyle : 'solid' , borderRadius : 10 , borderWidth : 2 , marginRight : 10},
-    SelectedEvent : {borderWidth : 2 , borderStyle : 'solid' , borderRadius : 10 ,flex : 1 ,alignItems : 'center' , borderColor : 'gold'},
+    SelectedEvent : {borderWidth : 2 , height : 30 , borderStyle : 'solid' , borderRadius : 10 ,flex : 1 ,alignItems : 'center' , borderColor : 'gold'},
     UnselectedEvent : {flex : 1 ,alignItems : 'center'},
     ColumnTextStyle : {fontSize : 16}
 

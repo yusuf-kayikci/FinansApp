@@ -36,7 +36,7 @@ export default class CurrencyMenu extends React.Component{
       tabBarPosition : 'bottom',
       tabBarOptions : {
         style : {
-          backgroundColor : 'gold' ,
+          backgroundColor : '#D68910' ,
         },
         inactiveBackgroundColor : 'white',
         labelStyle : {fontSize : 16 , fontWeight : 'bold'},

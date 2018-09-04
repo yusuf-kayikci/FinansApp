@@ -2,18 +2,12 @@
 
 import Data from '../model/Data'
 import { resolve } from 'dns';
+import ApiUri from '../api/apiuri'
 export default class ApiCaller {
-    public apiUrl : string;
-
-    constructor(_apiUrl : string){
-        this.apiUrl = _apiUrl;
-    }
-
-
     callCurrencyApi():Promise<Data[]>{
         return new Promise<Data[]>((resolve,reject)=>{
             let items : Data[] = [];
-            fetch(this.apiUrl)
+            fetch(ApiUri.CURRENCY_API_URI)
                 .then(response => response.json())
                 .then((response) => {
                     for(var i = 0;i < response.length;i++){
@@ -35,10 +29,12 @@ export default class ApiCaller {
                 })
         })
     }
-        callGoldApi():Promise<Data[]>{
+
+    callGoldApi():Promise<Data[]>{
+
             return new Promise<Data[]>((resolve,reject)=>{
                 let items : Data[] = [];
-                fetch(this.apiUrl)
+                fetch(ApiUri.GOLD_API_URI)
                     .then(response => response.json())
                     .then((response) => {
                         for(var i = 0;i < response.length;i++){
@@ -61,6 +57,29 @@ export default class ApiCaller {
                     })
             })
     }
+
+    call22CaratApi():Promise<Data>{
+        return new Promise<Data>((resolve,reject)=>{
+            let item : Data;
+            fetch(ApiUri.CARAT22_API_URI)
+                .then(response => response.json())
+                .then((response) => {
+                    let name : string = response['full_name'];
+                    let code : string = response['full_name'];
+                    let buying : number = (response['buying'] / 0.916);
+                    let selling : number = (response['selling'] / 0.900);
+                    let change_Rate : number = response['change_rate'];
+                    item = new Data(name,code,buying,selling,change_Rate);                                                                
+                }).then(()=>{
+                    console.log(item);
+                    resolve(item);
+                }).catch((err) => {
+                    reject(err);
+                    console.log(err);
+                })
+        })
+    }
+
 
 
 

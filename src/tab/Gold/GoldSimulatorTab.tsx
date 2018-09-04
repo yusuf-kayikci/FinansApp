@@ -2,10 +2,9 @@ import React from 'react'
 import {Component} from 'react'
 import {Acordion} from '../../model/Acordion'
 import AcordionMenu from '../../component/AcordionMenu'
- 
-
 import {View,Text, ScrollView , StyleSheet} from 'react-native'
 
+import {GoldCalculator} from '../../component/GoldCalculator'
 const carats_content : Array<string> = [
     '8 Ayar',
     '14 Ayar',
@@ -47,13 +46,21 @@ export default class GoldSimulatorTab extends React.Component{
     }
     render(){
         return(
-            <ScrollView>
-                <View>
-                    <AcordionMenu menuItems = {menuData}/>
-                </View>
+            <ScrollView style = {styles.container}>
+                <GoldCalculator/>
             </ScrollView>
 
         )
     }
 }
 
+    const styles = StyleSheet.create({
+        container : {marginTop : 25 , marginBottom : 25}
+    })
+
+
+/*      
+          <View>
+<AcordionMenu menuItems = {menuData}/>
+</View>
+*/

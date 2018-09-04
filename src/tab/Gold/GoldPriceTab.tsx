@@ -19,7 +19,7 @@ export default class GoldPriceTab extends Component<{},State>{
 
 
     public interval : any = null;
-    public apiCaller : ApiCaller = new ApiCaller(ApiUri.GOLD_API_URI);
+    public apiCaller : ApiCaller = new ApiCaller();
     constructor(props : any){
         super(props);
         this.state = {
