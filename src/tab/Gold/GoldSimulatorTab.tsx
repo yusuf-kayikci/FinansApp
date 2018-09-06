@@ -2,40 +2,51 @@ import React from 'react'
 import {Component} from 'react'
 import {Acordion} from '../../model/Acordion'
 import AcordionMenu from '../../component/AcordionMenu'
-import {View,Text, ScrollView , StyleSheet} from 'react-native'
+import {View,Text, ScrollView , StyleSheet , KeyboardAvoidingView } from 'react-native'
 
 import {GoldCalculator} from '../../component/GoldCalculator'
-const carats_content : Array<string> = [
-    '8 Ayar',
-    '14 Ayar',
-    '18 Ayar',
-    '22 Ayar',
-    '24 Ayar'
-]
-const gramgolds_content : Array<string> = [
-    '1 Gram Altın',
-    '2.5 Gram Altın',
-    '5 Gram Altın',
-    '10 Gram Altın',
-    '20 Gram Altın',
-    '50 Gram Altın'
-]
 
-const golds_content : Array<string> = [
-    'Çeyrek Altın',
-    'Yarım Altın',
-    'Ziynet Altın',
-    'Cumhuriyet Altın',
-    'İkibuçuk Altın',
-    'Gremse Altın'
-]
+import {GoldLines} from '../../model/GoldLines'
 
 
-const menuData : Acordion[] = [
-    new Acordion('AYARLAR',carats_content,0),
-    new Acordion('ZİYNET ALTIN',golds_content,0),
-    new Acordion('GRAM ALTIN',gramgolds_content,0)
+const carats : Array<GoldLines> = [
+    new GoldLines('8 Ayar' ,0.6,0.7,0.275,0.333,0,0,0,0,0,1),
+    new GoldLines('14 Ayar',0.7,0.9,0.550,0.575,0,0,0,0,0,1),
+    new GoldLines('18 Ayar',0.9,1,0.700,0.730,0,0,0,0,0,1),
+    new GoldLines('22 Ayar',0.93,1.1,0.900,0.910,0,0,0,0,0,1),
+    new GoldLines('24 Ayar',1.05,1.2,0.985,0.995,0,0,0,0,0,1),
 ]
+/*
+        _name : string,
+        _minBuyCarat : number,
+        _maxBuyCarat : number,
+        _minSellCarat : number,
+        _maxSellCarat : number,
+        _minBuyPrice : number,
+        _maxBuyPrice : number,
+        _minSellPrice : number,
+        _maxSellPrice : number,
+        _gram : number,
+        _amount : number
+*/
+const gramgold : Array<GoldLines> = [
+    new GoldLines('Gram Altın(14K)',0.550,0.575,0.585,0.600,0,0,0,0,1,0),
+    new GoldLines('Gram Altın(22K)',0.900,0.916,0.930,0.945,0,0,0,0,1,0),
+    new GoldLines('Gram Altın(24K)',0.985,0.995,1.01,1.05,0,0,0,0,1,0)
+]
+
+
+const officialgolds : Array<GoldLines> = [
+    new GoldLines('Çeyrek Altın',0.930,0.935,0.9,0.91,0,0,0,0,1.75,0),
+    new GoldLines('Yarım Altın',0.930,0.935,0.9,0.91,0,0,0,0,3.50,0),
+    new GoldLines('Ziynet Altın',0.930,0.935,0.9,0.91,0,0,0,0,7,0),
+    new GoldLines('Ata Altın',0.930,0.935,0.9,0.91,0,0,0,0,7.20,0),
+    new GoldLines('İkibuçuk Altın',0.930,0.935,0.9,0.91,0,0,0,0,17.5,0),
+    new GoldLines('İkibuçuk Ata Altın',0.930,0.935,0.9,0.91,0,0,0,0,18,0),
+    new GoldLines('Beşli Altın',0.930,0.935,0.9,0.91,0,0,0,0,35,0),
+    new GoldLines('Beşli Ata Altın',0.930,0.935,0.9,0.91,0,0,0,0,36,0),
+];
+
 
 
 
@@ -46,9 +57,14 @@ export default class GoldSimulatorTab extends React.Component{
     }
     render(){
         return(
-            <ScrollView style = {styles.container}>
-                <GoldCalculator/>
-            </ScrollView>
+
+                <KeyboardAvoidingView keyboardVerticalOffset={30} behavior="padding" style={{flex: 1}}>
+                    <ScrollView style = {styles.container}>
+                        <GoldCalculator carats = {carats} gramgold = {gramgold} officialgold = {officialgolds}/>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+
+        
 
         )
     }

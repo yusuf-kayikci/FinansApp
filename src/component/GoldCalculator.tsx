@@ -6,36 +6,9 @@ import ApiCaller from '../api/apicalller'
 import ApiUri from '../api/apiuri'
 import {GoldLines} from '../model/GoldLines'
 
-const carats : Array<GoldLines> = [
-    new GoldLines('8 Ayar' ,0.6,0.7,0.275,0.333,0,0,0,0,0,1),
-    new GoldLines('14 Ayar',0.7,0.9,0.550,0.575,0,0,0,0,0,1),
-    new GoldLines('18 Ayar',0.9,1,0.700,0.730,0,0,0,0,0,1),
-    new GoldLines('22 Ayar',0.93,1.1,0.900,0.910,0,0,0,0,0,1),
-    new GoldLines('24 Ayar',1.05,1.2,0.985,0.995,0,0,0,0,0,1),
-]
-/*
-        _name : string,
-        _minBuyCarat : number,
-        _maxBuyCarat : number,
-        _minSellCarat : number,
-        _maxSellCarat : number,
-        _minBuyPrice : number,
-        _maxBuyPrice : number,
-        _minSellPrice : number,
-        _maxSellPrice : number,
-        _gram : number,
-        _amount : number
-*/
-const gramgold : Array<GoldLines> = [
-    new GoldLines('Gram Altın(14K)',0.550,0.575,0.585,0.600,0,0,0,0,1,0),
-    new GoldLines('Gram Altın(22K)',0.900,0.916,0.930,0.945,0,0,0,0,1,0),
-    new GoldLines('Gram Altın(24K)',0.985,0.995,1010,1050,0,0,0,0,1,0)
-]
-
-
-
 
 interface State{
+    officialgold : Array<GoldLines>,
     buyUnitPrice : number,
     sellUnitPrice : number,
     menuSellorBuy : Array<boolean>
@@ -44,17 +17,26 @@ interface State{
     totalSellorBuy : boolean
 }
 
-export class GoldCalculator extends React.Component<{},State>{
-    public caratsPrice : Array<GoldLines> = carats;
-    public gramgoldPrice : Array<GoldLines> = gramgold;
+
+
+interface Props{
+    carats : Array<GoldLines>;
+    gramgold : Array<GoldLines>;
+    officialgold : Array<GoldLines>;
+}
+
+
+
+export class GoldCalculator extends React.Component<Props,State>{
     public apiCaller : ApiCaller = new ApiCaller();
-    constructor(props : any){
+    constructor(props : Props){
         super(props);
         this.state = {
             buyUnitPrice      : 0,
-            sellUnitPrice    : 0,
-            carats            : this.caratsPrice,
-            gramgold          : this.gramgoldPrice,
+            sellUnitPrice     : 0,
+            carats            : this.props.carats,
+            gramgold          : this.props.gramgold,
+            officialgold      : this.props.officialgold,
             menuSellorBuy     : [true,true,true],  //true means sell for each menu false is buy
             totalSellorBuy    : true               // true means sell when calculate total price false is buy
         }
@@ -88,7 +70,7 @@ export class GoldCalculator extends React.Component<{},State>{
                         </View>
                         <View style = {style.TextInput}>
                             {calculateFunc}
-                            <TextInput keyboardType = 'decimal-pad'  onChangeText = {(amount) => {calculateFunc(index,parseFloat(amount))}}   underlineColorAndroid = 'white'/>
+                            <TextInput keyboardType = 'numeric'  onChangeText = {(amount) => {calculateFunc(index,parseFloat(amount))}}   underlineColorAndroid = 'white'/>
                         </View>
                     </View>            
                 );
@@ -126,6 +108,21 @@ export class GoldCalculator extends React.Component<{},State>{
         this.state.gramgold[index].maxSellPrice = _maxSellCarat * amount * this.state.sellUnitPrice;
         this.setState({
             gramgold : this.state.gramgold
+        })
+    }
+
+    calculate_officialgold(index : number , amount : number){
+        amount = (!isNaN(amount)) ? amount : 0;
+        let _minBuyCarat : number = this.state.officialgold[index].minBuyCarat;
+        let _maxBuyCarat : number = this.state.officialgold[index].maxBuyCarat;
+        let _minSellCarat : number = this.state.officialgold[index].minSellCarat;
+        let _maxSellCarat : number = this.state.officialgold[index].maxSellCarat;
+        this.state.officialgold[index].minBuyPrice = _minBuyCarat *   amount * this.state.buyUnitPrice; //* price
+        this.state.officialgold[index].maxBuyPrice = _maxBuyCarat *   amount * this.state.buyUnitPrice;
+        this.state.officialgold[index].minSellPrice = _minSellCarat * amount * this.state.sellUnitPrice;
+        this.state.officialgold[index].maxSellPrice = _maxSellCarat * amount * this.state.sellUnitPrice;
+        this.setState({
+            officialgold : this.state.officialgold
         })
     }
 
@@ -249,11 +246,18 @@ export class GoldCalculator extends React.Component<{},State>{
                             {this.renderMenuContents(this.state.gramgold , this.calculate_gramgold.bind(this))}
                         </View>   
                     </View>
-
                 </Acordion>
                 <Acordion title = 'ZİYNETLER(ÇEYREK,YARIM...)'>
-                    <View style = {style.Lines}>
-                    </View>   
+                <View style = {{flexDirection : 'column'}}>
+                        {this.renderPriceHeader()}
+                        <View style = {style.PriceView}>    
+                                {this.renderMaxMinBuyPrice(this.state.officialgold)}
+                                {this.renderMaxMinSellPrice(this.state.officialgold)}     
+                        </View>         
+                        <View style = {style.Lines}>
+                            {this.renderMenuContents(this.state.officialgold , this.calculate_officialgold.bind(this))}
+                        </View>   
+                    </View>
                 </Acordion>
             </View>
             

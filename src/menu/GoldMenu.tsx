@@ -24,7 +24,7 @@ var GoldTabNavigator = createMaterialTopTabNavigator({
     tabBarPosition : 'bottom',
     tabBarOptions : {
       style : {
-        backgroundColor : '#D68910' ,
+        backgroundColor : '#F7BE06' ,
       },
       inactiveBackgroundColor : 'white',
       labelStyle : {fontSize : 16 , fontWeight : 'bold'},

@@ -37,7 +37,7 @@ var MainScreenNavigator = createMaterialTopTabNavigator({
     activeTintColor : 'black',
     indicatorStyle : {backgroundColor : 'black'},
     style : {
-      backgroundColor : '#D68910' ,
+      backgroundColor : '#F7BE06' ,
       ...Platform.select({
         ios: {
           top : 0,
