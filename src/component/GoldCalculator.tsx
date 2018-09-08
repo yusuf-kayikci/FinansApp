@@ -14,7 +14,9 @@ interface State{
     menuSellorBuy : Array<boolean>
     carats : Array<GoldLines>
     gramgold : Array<GoldLines>
-    totalSellorBuy : boolean
+    totalSellorBuy : boolean,
+    totalBuyPrice  : Array<number>,
+    totalSellPrice : Array<number>
 }
 
 
@@ -38,7 +40,9 @@ export class GoldCalculator extends React.Component<Props,State>{
             gramgold          : this.props.gramgold,
             officialgold      : this.props.officialgold,
             menuSellorBuy     : [true,true,true],  //true means sell for each menu false is buy
-            totalSellorBuy    : true               // true means sell when calculate total price false is buy
+            totalSellorBuy    : true,               // true means sell when calculate total price false is buy
+            totalBuyPrice     : [0,0],
+            totalSellPrice    : [0,0]
         }
     }
 
@@ -55,9 +59,6 @@ export class GoldCalculator extends React.Component<Props,State>{
             })
         })
     }
-
-
-
 
 
     renderMenuContents(goldList : Array<GoldLines> , calculateFunc : any){
@@ -78,6 +79,7 @@ export class GoldCalculator extends React.Component<Props,State>{
         );
     }
 
+
     calculate_carat(index : number , gram : number){
         console.log(index);
         gram = (!isNaN(gram)) ? gram : 0;
@@ -85,16 +87,22 @@ export class GoldCalculator extends React.Component<Props,State>{
         let _maxBuyCarat : number = this.state.carats[index].maxBuyCarat;
         let _minSellCarat : number = this.state.carats[index].minSellCarat;
         let _maxSellCarat : number = this.state.carats[index].maxSellCarat;
-        this.state.carats[index].minBuyPrice = _minBuyCarat * gram *     this.state.buyUnitPrice; //* price
-        this.state.carats[index].maxBuyPrice = _maxBuyCarat * gram *     this.state.buyUnitPrice;
-        this.state.carats[index].minSellPrice = _minSellCarat * gram *   this.state.sellUnitPrice;
-        this.state.carats[index].maxSellPrice = _maxSellCarat * gram *   this.state.sellUnitPrice;        
+        let minBuyPrice = _minBuyCarat * gram *     this.state.buyUnitPrice; //* price
+        let maxBuyPrice = _maxBuyCarat * gram *     this.state.buyUnitPrice;
+        let minSellPrice = _minSellCarat * gram *   this.state.sellUnitPrice;
+        let maxSellPrice = _maxSellCarat * gram *   this.state.sellUnitPrice;        
+        this.state.carats[index].minBuyPrice = minBuyPrice;
+        this.state.carats[index].maxBuyPrice = maxBuyPrice;
+        this.state.carats[index].minSellPrice = minSellPrice;
+        this.state.carats[index].maxSellPrice = maxSellPrice;
         this.setState({
-            carats : this.state.carats
+            carats : this.state.carats,
         })
+        this.calculateTotalPrices();
 
 
     }
+
 
     calculate_gramgold(index : number , amount : number){
         amount = (!isNaN(amount)) ? amount : 0;
@@ -102,14 +110,21 @@ export class GoldCalculator extends React.Component<Props,State>{
         let _maxBuyCarat : number = this.state.gramgold[index].maxBuyCarat;
         let _minSellCarat : number = this.state.gramgold[index].minSellCarat;
         let _maxSellCarat : number = this.state.gramgold[index].maxSellCarat;
-        this.state.gramgold[index].minBuyPrice = _minBuyCarat *   amount * this.state.buyUnitPrice; //* price
-        this.state.gramgold[index].maxBuyPrice = _maxBuyCarat *   amount * this.state.buyUnitPrice;
-        this.state.gramgold[index].minSellPrice = _minSellCarat * amount * this.state.sellUnitPrice;
-        this.state.gramgold[index].maxSellPrice = _maxSellCarat * amount * this.state.sellUnitPrice;
+        
+        let minBuyPrice : number = _minBuyCarat *   amount * this.state.buyUnitPrice;
+        let maxBuyPrice : number = _maxBuyCarat *   amount * this.state.buyUnitPrice;
+        let minSellPrice : number = _minSellCarat * amount * this.state.sellUnitPrice;
+        let maxSellPrice : number = _maxSellCarat * amount * this.state.sellUnitPrice;
+        this.state.gramgold[index].minBuyPrice =  minBuyPrice //* price
+        this.state.gramgold[index].maxBuyPrice =  maxBuyPrice
+        this.state.gramgold[index].minSellPrice = minSellPrice 
+        this.state.gramgold[index].maxSellPrice = maxSellPrice 
         this.setState({
             gramgold : this.state.gramgold
         })
+        this.calculateTotalPrices();
     }
+
 
     calculate_officialgold(index : number , amount : number){
         amount = (!isNaN(amount)) ? amount : 0;
@@ -117,15 +132,50 @@ export class GoldCalculator extends React.Component<Props,State>{
         let _maxBuyCarat : number = this.state.officialgold[index].maxBuyCarat;
         let _minSellCarat : number = this.state.officialgold[index].minSellCarat;
         let _maxSellCarat : number = this.state.officialgold[index].maxSellCarat;
-        this.state.officialgold[index].minBuyPrice = _minBuyCarat *   amount * this.state.buyUnitPrice; //* price
-        this.state.officialgold[index].maxBuyPrice = _maxBuyCarat *   amount * this.state.buyUnitPrice;
-        this.state.officialgold[index].minSellPrice = _minSellCarat * amount * this.state.sellUnitPrice;
-        this.state.officialgold[index].maxSellPrice = _maxSellCarat * amount * this.state.sellUnitPrice;
+        let minBuyPrice : number = _minBuyCarat *   amount * this.state.buyUnitPrice;
+        let maxBuyPrice : number = _maxBuyCarat *   amount * this.state.buyUnitPrice;
+        let minSellPrice : number = _minSellCarat * amount * this.state.sellUnitPrice;
+        let maxSellPrice : number = _maxSellCarat * amount * this.state.sellUnitPrice;
+        this.state.officialgold[index].minBuyPrice = minBuyPrice  //* price
+        this.state.officialgold[index].maxBuyPrice = maxBuyPrice 
+        this.state.officialgold[index].minSellPrice = minSellPrice 
+        this.state.officialgold[index].maxSellPrice = maxSellPrice 
         this.setState({
             officialgold : this.state.officialgold
         })
+        this.calculateTotalPrices();
     }
 
+
+    calculateTotalPrices(){
+        let totalMaxBuyPrice : number = 0;
+        let totalMinBuyPrice : number = 0;
+        let totalMaxSellPrice : number = 0;
+        let totalMinSellPrice : number = 0;
+        this.state.carats.map((carat) => {
+            totalMaxBuyPrice += carat.maxBuyPrice;
+            totalMinBuyPrice += carat.minBuyPrice;
+            totalMaxSellPrice += carat.maxSellPrice;
+            totalMinSellPrice += carat.minSellPrice
+        })
+        this.state.officialgold.map((gold) => {
+            totalMaxBuyPrice += gold.maxBuyPrice;
+            totalMinBuyPrice += gold.minBuyPrice;
+            totalMaxSellPrice +=gold.maxSellPrice;
+            totalMinSellPrice +=gold.minSellPrice
+        })
+
+        this.state.gramgold.map((gram) => {
+            totalMaxBuyPrice += gram.maxBuyPrice;
+            totalMinBuyPrice += gram.minBuyPrice;
+            totalMaxSellPrice +=gram.maxSellPrice;
+            totalMinSellPrice +=gram.minSellPrice
+        })
+        this.setState({
+            totalBuyPrice : [totalMinBuyPrice,totalMaxBuyPrice],
+            totalSellPrice : [totalMinSellPrice , totalMaxSellPrice]       
+        })
+    }
 
     renderSellOrBuy(index : number){
         let selectedEvent = null; 
@@ -141,8 +191,6 @@ export class GoldCalculator extends React.Component<Props,State>{
             selectedEvent = style.UnselectedEvent;
             unselctedEvent = style.SelectedEvent;
         }
-
-
         return(
             <View style = {style.RowContainer}>
                 <View style = {selectedEvent}>
@@ -171,39 +219,43 @@ export class GoldCalculator extends React.Component<Props,State>{
     renderMaxMinSellPrice(goldList : Array<GoldLines>){
         let minSellPrice : number = 0;
         let maxSellPrice : number = 0;
+        let priceType : string = 'Satış Fiyatınız';
         goldList.map((item) => {
             minSellPrice += item.minSellPrice;
             maxSellPrice += item.maxSellPrice;
         })
-        
         return(
-            <View style = {style.Price}>
-                <Text style = {style.PriceDesc}>Satış Fiyatınız</Text>
-                <Text style = {style.PriceText}>{minSellPrice.toFixed(2)}TL</Text>
-                <Text style = {style.PriceText}>{maxSellPrice.toFixed(2)}TL</Text>
-            </View>
+            this.displayPrices(priceType , minSellPrice , maxSellPrice)
         );
+
     }
 
 
     renderMaxMinBuyPrice(goldList : Array<GoldLines>){
         let minBuyPrice : number = 0;
         let maxBuyPrice : number = 0;
+        let priceType : string = 'Alış Fiyatınız';
         goldList.map((item) => {
             minBuyPrice += item.minBuyPrice;
             maxBuyPrice += item.maxBuyPrice;
         })
+
+        return(
+            this.displayPrices(priceType , minBuyPrice , maxBuyPrice)
+        );
+
         
+    }
+
+    displayPrices(priceType : string , minPrice : number , maxPrice : number){
         return(
             <View style = {style.Price}>
-                <Text style = {style.PriceDesc}>Alış Fiyatınız</Text>
-                <Text style = {style.PriceText}>{minBuyPrice.toFixed(2)}TL</Text>
-                <Text style = {style.PriceText}>{maxBuyPrice.toFixed(2)}TL</Text>
+                <Text style = {style.PriceDesc}>{priceType}</Text>
+                <Text style = {style.PriceText}>{minPrice.toFixed(2)}TL</Text>
+                <Text style = {style.PriceText}>{maxPrice.toFixed(2)}TL</Text>
             </View>
         );
     }
-
-
 
 
     renderPriceHeader(){
@@ -222,7 +274,11 @@ export class GoldCalculator extends React.Component<Props,State>{
     render(){
         return(
             <View>
-                <Acordion title = 'İŞÇİLİKLİ ÜRÜNLER(14K,18K...)' >
+                    <View style = {[style.PriceView,{borderStyle : 'solid' , borderWidth : 1 , borderRadius : 10 , margin : 5}]}>                            
+                            {this.displayPrices('Total Alış Fiyatınız' , this.state.totalBuyPrice[0] , this.state.totalBuyPrice[1])}
+                            {this.displayPrices('Total Satış Fiyatınız' , this.state.totalSellPrice[0], this.state.totalSellPrice[1])}     
+                    </View>    
+                <Acordion title = 'İŞÇİLİKLİ ÜRÜNLER(14K,18K...)'>
                     <View style = {{flexDirection : 'column'}}>
                         {this.renderPriceHeader()}             
                         <View style = {style.PriceView}>
@@ -283,5 +339,6 @@ const style = StyleSheet.create({
     PriceDesc : {fontSize : 16 , alignItems : 'center'},
     PriceText : { fontSize : 18  , fontWeight : 'bold' , alignItems : 'center'},
     ContentView : {},
-    ContentNameText : {}
+    ContentNameText : {},
+    TotalContainer : {borderStyle : 'solid' , borderWidth : 2 }
 });

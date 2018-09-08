@@ -54,16 +54,10 @@ export default class CurrencyPriceTab extends Component<{},State>{
         });
 
     }
-    componentWillMount(){
-        this.getData();
-    }
-
-    componentDidMount() {
+    componentDidMount(){
         this.interval = setInterval(() => this.tick(), 5000);
-
     }
 
-    
     componentWillUnmount() {
         clearInterval(this.interval);
     }
